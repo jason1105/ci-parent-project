@@ -14,7 +14,10 @@ pipeline {
                     sh 'mvn clean compile package'
                 }
 
-                sh 'cp target/ $HOME/target/'
+                timeout(time: 3, unit: 'MINUTES') {
+                    sh 'cp -r target/ $HOME/target/'
+                }
+                
 
                 sh 'echo "==== Build complete ===="'
             }
