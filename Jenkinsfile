@@ -7,11 +7,9 @@ pipeline {
                     echo "==== Building ===="
                     ls -lah
                 '''
-            }
-            steps {
+                
                 sh 'mvn --version'
-            }
-            steps {
+
                 sh 'echo "==== Build complete ===="'
             }
         }
