@@ -11,7 +11,7 @@ pipeline {
                 sh 'mvn --version'
 
                 retry(3) {
-                    mvn clean compile package
+                    sh 'mvn clean compile package'
                 }
 
                 sh 'cp target/ $HOME/target/'
