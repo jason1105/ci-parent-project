@@ -1,8 +1,17 @@
 pipeline {
-    agent { docker {  image 'maven:3.8.5-openjdk-18-slim' } }
+    agent { 
+        docker {  
+            image 'maven:3.8.5-openjdk-18-slim' 
+            // $HOME is jenkins home.  i.e. /var/jenkins_home
+            args '-v $HOME/.m2:/root/.m2'
+            reuseNode true
+        } 
+    }
     stages {
         stage('build') {
             steps {
+                // $HOME is os user home. i.e. /root
+                sh 'echo $HOME'
                 sh '''
                     echo "==== Building ===="
                     ls -lah
@@ -14,11 +23,11 @@ pipeline {
                 }
 
                 sh 'mvn clean compile package'
-                sh 'cp -r target/ $HOME/target/'
+                sh 'cp -r ./target/ci-parent-project-1.0-SNAPSHOT.jar $HOME/target/'
 
                 timeout(time: 3, unit: 'MINUTES') {
                     retry(3) {
-                sh 'echo "==== Build complete ===="'
+                        sh 'echo "==== Build complete ===="'
                     }
                 }
 
