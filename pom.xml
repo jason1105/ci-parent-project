@@ -4,12 +4,19 @@
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
   <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-parent</artifactId>
+    <version>2.6.7</version>
+    <relativePath/>
+  </parent>
+
   <groupId>com.lvw.ci</groupId>
   <artifactId>ci-parent-project</artifactId>
   <version>1.0-SNAPSHOT</version>
 
   <name>ci-parent-project</name>
-
   <packaging>pom</packaging>
 
   <modules>
@@ -21,18 +28,43 @@
     <maven.compiler.release>18</maven.compiler.release>
   </properties>
 
+  <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.11</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+
   <dependencyManagement>
     <dependencies>
-      <dependency>
-        <groupId>org.springframework</groupId>
-        <artifactId>spring-core</artifactId>
-        <version>5.3.16</version>
-      </dependency>
       <dependency>
         <groupId>junit</groupId>
         <artifactId>junit</artifactId>
         <version>4.11</version>
         <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>edu.uci.ics</groupId>
+        <artifactId>crawler4j</artifactId>
+        <version>4.4.0</version>
+      </dependency>
+      <dependency>
+        <!-- jsoup HTML parser library @ https://jsoup.org/ -->
+        <groupId>org.jsoup</groupId>
+        <artifactId>jsoup</artifactId>
+        <version>1.14.3</version>
+      </dependency>
+      <dependency>
+        <groupId>net.sourceforge.htmlunit</groupId>
+        <artifactId>htmlunit</artifactId>
+        <version>2.61.0</version>
+      </dependency>
+      <dependency>
+        <groupId>com.squareup.okhttp3</groupId>
+        <artifactId>okhttp</artifactId>
+        <version>4.9.3</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
@@ -41,6 +73,10 @@
     <pluginManagement>
       <!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
       <plugins>
+        <plugin>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-maven-plugin</artifactId>
+        </plugin>
         <!-- clean lifecycle, see https://maven.apache.org/ref/current/maven-core/lifecycles.html#clean_Lifecycle -->
         <plugin>
           <artifactId>maven-clean-plugin</artifactId>
